@@ -30,6 +30,14 @@ function Form() {
         Cancelar
       </button>
 
+      <button>
+        Cancelar
+      </button>
+
+      <button disabled = >
+        Cadastrar nova senha
+      </button>
+
     </form>
   );
 }

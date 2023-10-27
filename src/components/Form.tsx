@@ -5,6 +5,18 @@ type FormProps = {
 };
 
 function Form({ onCancelForm } : FormProps) {
+  const inputValidation = () => {
+    const inputServiceName = /^[a-zA-Z0-9 _-]+$/;
+    const inputLogin = /^[a-zA-Z0-9 _-]+$/;
+    const inputPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,16}$/;
+
+    const inputValidServiceName = inputServiceName.test();
+    const inputValidLogin = inputLogin.test();
+    const inputValidPassword = inputPassword.test();
+
+    return inputValidLogin && inputValidPassword && inputValidServiceName;
+  };
+
   return (
     <div>
       <form>

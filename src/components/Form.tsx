@@ -21,28 +21,16 @@ function Form({ onCancelForm } : FormProps) {
     const validPassword = inputPassword.test(password);
     const validURL = inputURL.test(url);
 
-    if (!validPassword) {
-      const numLength = /.{8,16}/.test(password);
-      const hasLettersAndNumber = /^(?=.*[a-zA-Z])(?=.*\d)/.test(password);
-      const hasSpecialCharacters = /[@#$!%^&*?]/.test(password);
-
-      // if (!hasMinimumLength) {
-      //   const mensage1 = 'Possuir 8 ou mais caracteres'
-      //   return mensage1;
-      // } if (!hasMaximumLength) {
-      //   const mensage2 = 'Possuir até 16 caracteres';
-      //   return mensage2;
-      // } if (!hasLettersAndNumber) {
-      //   const mensage3 = 'Possuir letras e números';
-      //   return mensage3;
-      // } if (!hasSpecialCharacters) {
-      //   const mensage4 = 'Possuir algum caractere especial';
-      //   return mensage4;
-      // }
-    }
-
     return (validLogin && validPassword && validURL && validService);
   };
+
+  const lessLength = password.length >= 8;
+  const hightLength = password.length <= 16;
+  const letterNum = /^(?=.*[a-zA-Z])(?=.*\d)/.test(password);
+  const especialChar = /[@#$!%^&*?]/.test(password);
+
+  const valid = 'valid-password-check';
+  const invalid = 'invalid-password-check';
 
   const handleServiceNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setServiceName(event.target.value);
@@ -73,16 +61,29 @@ function Form({ onCancelForm } : FormProps) {
         <label>
           Senha
           <input type="password" value={ password } onChange={ handlePasswordChange } />
-          <p className={ validatePassword(password) ? 'valid-password-check' : 'invalid-password-check' }></p>
-          <p className={ !validatePassword(password) && !numLength(password) ? 'invalid-password-check' : 'valid-password-check' }></p>
-          <p className={ !validatePassword(password) && !hasLettersAndNumber(password) ? 'invalid-password-check' : '' }></p>
-          <p className={ !validatePassword(password) && hasSpecialCharacters(password) ? 'valid-password-check' : '' }></p>
         </label>
 
         <label>
           URL
           <input type="text" value={ url } onChange={ handleUrlChange } />
         </label>
+
+        <div>
+          <p className={ lessLength ? valid : invalid }>
+            Possuir 8 ou mais caracteres
+          </p>
+          <p className={ hightLength ? valid : invalid }>
+            Possuir até 16 caracteres
+          </p>
+          <p className={ letterNum ? valid : invalid }>
+            Possuir letras e números
+          </p>
+          <p
+            className={ especialChar ? valid : invalid }
+          >
+            Possuir algum caractere especial
+          </p>
+        </div>
 
         <button type="submit" disabled={ !inputValidation() }>
           Cadastrar

@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 // Props é sempre um objeto
 type FormProps = {
-  onCancelForm: () => void,
+  onCancelForm: () => void;
+  onFormSubmit: (serviceData) => void;
 };
 
-function Form({ onCancelForm } : FormProps) {
+function Form({ onCancelForm, onFormSubmit }: FormProps) {
   const [serviceName, setServiceName] = useState('');
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
@@ -44,10 +45,26 @@ function Form({ onCancelForm } : FormProps) {
   const handleUrlChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUrl(event.target.value);
   };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const serviceData = {
+      renderingService: serviceName,
+      renderingLogin: login,
+      renderingPassword: password,
+      renderingURL: url,
+    };
+
+    onFormSubmit(serviceData);
+    setServiceName('');
+    setLogin('');
+    setPassword('');
+    setUrl('');
+  };
 
   return (
     <div>
-      <form>
+      <form onSubmit={ handleSubmit }>
+
         <label>
           Nome do serviço
           <input type="text" value={ serviceName } onChange={ handleServiceNameChange } />
@@ -92,6 +109,7 @@ function Form({ onCancelForm } : FormProps) {
         <button type="button" onClick={ onCancelForm }>
           Cancelar
         </button>
+
       </form>
     </div>
   );

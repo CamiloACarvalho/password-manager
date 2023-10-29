@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-// Props é sempre um objeto
+import { FormType } from '../type';
+
 type FormProps = {
   onCancelForm: () => void;
-  onFormSubmit: (serviceData) => void;
+  onFormSubmit: (serviceData: FormType) => void;
 };
 
 function Form({ onCancelForm, onFormSubmit }: FormProps) {
@@ -22,13 +23,13 @@ function Form({ onCancelForm, onFormSubmit }: FormProps) {
     const validPassword = inputPassword.test(password);
     const validURL = inputURL.test(url);
 
-    return (validLogin && validPassword && validURL && validService);
+    return validService && validLogin && validPassword && validURL;
   };
 
   const lessLength = password.length >= 8;
-  const hightLength = password.length <= 16;
+  const highLength = password.length <= 16;
   const letterNum = /^(?=.*[a-zA-Z])(?=.*\d)/.test(password);
-  const especialChar = /[@#$!%^&*?]/.test(password);
+  const specialChar = /[@#$!%^&*?]/.test(password);
 
   const valid = 'valid-password-check';
   const invalid = 'invalid-password-check';
@@ -45,26 +46,29 @@ function Form({ onCancelForm, onFormSubmit }: FormProps) {
   const handleUrlChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUrl(event.target.value);
   };
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const serviceData = {
-      renderingService: serviceName,
-      renderingLogin: login,
-      renderingPassword: password,
-      renderingURL: url,
-    };
 
-    onFormSubmit(serviceData);
-    setServiceName('');
-    setLogin('');
-    setPassword('');
-    setUrl('');
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (inputValidation()) {
+      const serviceData = {
+        renderingService: serviceName,
+        renderingLogin: login,
+        renderingPassword: password,
+        renderingURL: url,
+      };
+      onFormSubmit(serviceData);
+
+      setServiceName('');
+      setLogin('');
+      setPassword('');
+      setUrl('');
+    }
   };
 
   return (
     <div>
       <form onSubmit={ handleSubmit }>
-
         <label>
           Nome do serviço
           <input type="text" value={ serviceName } onChange={ handleServiceNameChange } />
@@ -89,15 +93,13 @@ function Form({ onCancelForm, onFormSubmit }: FormProps) {
           <p className={ lessLength ? valid : invalid }>
             Possuir 8 ou mais caracteres
           </p>
-          <p className={ hightLength ? valid : invalid }>
+          <p className={ highLength ? valid : invalid }>
             Possuir até 16 caracteres
           </p>
           <p className={ letterNum ? valid : invalid }>
             Possuir letras e números
           </p>
-          <p
-            className={ especialChar ? valid : invalid }
-          >
+          <p className={ specialChar ? valid : invalid }>
             Possuir algum caractere especial
           </p>
         </div>
@@ -109,7 +111,6 @@ function Form({ onCancelForm, onFormSubmit }: FormProps) {
         <button type="button" onClick={ onCancelForm }>
           Cancelar
         </button>
-
       </form>
     </div>
   );

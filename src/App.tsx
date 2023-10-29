@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import Form from './components/Form';
+import { FormType } from './type';
 import './App.css';
 
 function App() {
   const [showForm, setShowForm] = useState(false);
-  const [services, setServices] = useState([]);
+  const [services, setServices] = useState<FormType[]>([]);
 
   const handleClick = () => {
     setShowForm(!showForm);
   };
+
   const handleFormSubmit = (serviceData) => {
     setServices([...services, serviceData]);
     setShowForm(false);

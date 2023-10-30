@@ -108,19 +108,18 @@ function Form({
           URL
           <input type="text" value={ url } onChange={ handleUrlChange } />
         </label>
-
         <div>
           <p className={ lessLength ? valid : invalid }>
-            { lessLength ? '' : 'Possuir 8 ou mais caracteres' }
+            Possuir 8 ou mais caracteres
           </p>
           <p className={ highLength ? valid : invalid }>
-            { highLength ? '' : 'Possuir até 16 caracteres' }
+            Possuir até 16 caracteres
           </p>
           <p className={ letterNum ? valid : invalid }>
-            { letterNum ? '' : 'Possuir letras e números' }
+            Possuir letras e números
           </p>
           <p className={ specialChar ? valid : invalid }>
-            { specialChar ? '' : 'Possuir algum caractere especial' }
+            Possuir algum caractere especial
           </p>
         </div>
 

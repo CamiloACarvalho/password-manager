@@ -15,6 +15,7 @@ function Form({
   const [password, setPassword] = useState('');
   const [url, setUrl] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   const inputValidation = () => {
     const inputServiceName = /^[a-zA-Z0-9 _-]+$/;
@@ -64,6 +65,12 @@ function Form({
       setLogin('');
       setPassword('');
       setUrl('');
+
+      setShowSuccessMessage(true);
+
+      setTimeout(() => {
+        setShowSuccessMessage(false);
+      }, 1500);
     }
   };
 
@@ -117,9 +124,16 @@ function Form({
           </p>
         </div>
 
-        <button type="submit" disabled={ !inputValidation() }>
+        <button
+          type="submit"
+          disabled={ !inputValidation() }
+        >
           Cadastrar
         </button>
+
+        {showSuccessMessage && (
+          <p>Sua senha foi cadastrada com sucesso!</p>
+        )}
 
         <button type="button" onClick={ onCancelForm }>
           Cancelar

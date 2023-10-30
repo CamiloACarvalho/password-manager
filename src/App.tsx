@@ -7,6 +7,7 @@ function App() {
   const [showForm, setShowForm] = useState(false);
   const [services, setServices] = useState<FormType[]>([]);
   const [hidePasswords, setHidePasswords] = useState<boolean>(false);
+  const [serviceAdded, setServiceAdded] = useState(false);
 
   const handleClick = () => {
     setShowForm(!showForm);
@@ -15,6 +16,12 @@ function App() {
   const handleFormSubmit = (serviceData:FormType) => {
     setServices([...services, serviceData]);
     setShowForm(false);
+
+    setServiceAdded(true);
+
+    setTimeout(() => {
+      setServiceAdded(false);
+    }, 1500);
   };
 
   const handleRemoveService = (index: number) => {
@@ -60,6 +67,7 @@ function App() {
       ) : (
         <button onClick={ handleClick }>Cadastrar nova senha</button>
       )}
+      { serviceAdded && <p>Serviço cadastrado com sucesso</p> }
       <input
         type="checkbox"
         id="passwordInput"

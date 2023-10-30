@@ -34,19 +34,19 @@ function App() {
       <h1>Gerenciador de senhas</h1>
 
       <h2>Lista de Serviços</h2>
+
       { services.length === 0 && !showForm && <p>Nenhuma senha cadastrada</p> }
+
       <ul>
         {services.map((service, index) => (
           <li key={ index }>
             <a href={ service.renderingURL }>{ service.renderingService }</a>
             <p>
               Login:
-              {' '}
-              {service.renderingLogin}
+              { service.renderingLogin }
             </p>
             <p>
               Senha:
-              {' '}
               { hidePasswords ? '******' : service.renderingPassword }
             </p>
             <button
@@ -59,6 +59,7 @@ function App() {
           </li>
         ))}
       </ul>
+
       {showForm ? (
         <Form
           onCancelForm={ handleClick }
@@ -67,7 +68,9 @@ function App() {
       ) : (
         <button onClick={ handleClick }>Cadastrar nova senha</button>
       )}
+
       { serviceAdded && <p>Serviço cadastrado com sucesso</p> }
+
       <input
         type="checkbox"
         id="passwordInput"

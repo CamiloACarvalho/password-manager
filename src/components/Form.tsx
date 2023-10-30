@@ -66,6 +66,8 @@ function Form({
       setPassword('');
       setUrl('');
 
+      onCancelForm();
+
       Swal.fire('SweetAlert2 is working!');
     }
   };
@@ -104,6 +106,7 @@ function Form({
           URL
           <input type="text" value={ url } onChange={ handleUrlChange } />
         </label>
+
         <div>
           <p className={ lessLength ? valid : invalid }>
             Possuir 8 ou mais caracteres

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Swal from 'sweetalert2';
 import { FormType } from '../type';
 
 type FormProps = {
@@ -15,7 +16,6 @@ function Form({
   const [password, setPassword] = useState('');
   const [url, setUrl] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   const inputValidation = () => {
     const inputServiceName = /^[a-zA-Z0-9 _-]+$/;
@@ -66,11 +66,7 @@ function Form({
       setPassword('');
       setUrl('');
 
-      setShowSuccessMessage(true);
-
-      setTimeout(() => {
-        setShowSuccessMessage(false);
-      }, 1500);
+      Swal.fire('SweetAlert2 is working!');
     }
   };
 
@@ -129,10 +125,6 @@ function Form({
         >
           Cadastrar
         </button>
-
-        {showSuccessMessage && (
-          <p>Sua senha foi cadastrada com sucesso!</p>
-        )}
 
         <button type="button" onClick={ onCancelForm }>
           Cancelar

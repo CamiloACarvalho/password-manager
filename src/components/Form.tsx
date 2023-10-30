@@ -4,20 +4,17 @@ import { FormType } from '../type';
 type FormProps = {
   onCancelForm: () => void;
   onFormSubmit: (serviceData: FormType) => void;
-  hidePasswords: boolean;
-  setHidePasswords: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 function Form({
   onCancelForm,
   onFormSubmit,
-  hidePasswords,
-  setHidePasswords,
 }: FormProps) {
   const [serviceName, setServiceName] = useState('');
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [url, setUrl] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
   const inputValidation = () => {
     const inputServiceName = /^[a-zA-Z0-9 _-]+$/;
@@ -46,9 +43,6 @@ function Form({
   };
   const handleLoginChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setLogin(event.target.value);
-  };
-  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
   };
   const handleUrlChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUrl(event.target.value);
@@ -89,11 +83,19 @@ function Form({
         <label>
           Senha
           <input
-            type={ hidePasswords ? 'password' : 'text' }
+            type={ showPassword ? 'text' : 'password' }
             value={ password }
-            onChange={ handlePasswordChange }
+            onChange={ (event) => setPassword(event.target.value) }
           />
         </label>
+
+        <button
+          data-testid="show-hide-form-password"
+          type="button"
+          onClick={ () => setShowPassword(!showPassword) }
+        >
+          { showPassword ? 'Ocultar Senha' : 'Mostrar Senha' }
+        </button>
 
         <label>
           URL
@@ -122,14 +124,6 @@ function Form({
         <button type="button" onClick={ onCancelForm }>
           Cancelar
         </button>
-
-        <input
-          type="checkbox"
-          id="passwordInput"
-          checked={ hidePasswords }
-          onChange={ () => setHidePasswords(!hidePasswords) }
-        />
-        <label htmlFor="passwordInput">Esconder senhas</label>
       </form>
     </div>
   );

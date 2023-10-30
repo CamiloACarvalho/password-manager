@@ -56,8 +56,6 @@ function App() {
         <Form
           onCancelForm={ handleClick }
           onFormSubmit={ handleFormSubmit }
-          hidePasswords={ hidePasswords }
-          setHidePasswords={ setHidePasswords }
         />
       ) : (
         <button onClick={ handleClick }>Cadastrar nova senha</button>

@@ -68,7 +68,10 @@ function Form({
 
       onCancelForm();
 
-      Swal.fire('SweetAlert2 is working!');
+      Swal.fire({
+        title: 'Seu serviço foi cadastrado com sucesso',
+        timer: 1500,
+      });
     }
   };
 

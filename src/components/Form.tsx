@@ -4,9 +4,16 @@ import { FormType } from '../type';
 type FormProps = {
   onCancelForm: () => void;
   onFormSubmit: (serviceData: FormType) => void;
+  hidePasswords: boolean;
+  setHidePasswords: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-function Form({ onCancelForm, onFormSubmit }: FormProps) {
+function Form({
+  onCancelForm,
+  onFormSubmit,
+  hidePasswords,
+  setHidePasswords,
+}: FormProps) {
   const [serviceName, setServiceName] = useState('');
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
@@ -81,7 +88,11 @@ function Form({ onCancelForm, onFormSubmit }: FormProps) {
 
         <label>
           Senha
-          <input type="password" value={ password } onChange={ handlePasswordChange } />
+          <input
+            type={ hidePasswords ? 'password' : 'text' }
+            value={ password }
+            onChange={ handlePasswordChange }
+          />
         </label>
 
         <label>
@@ -91,16 +102,16 @@ function Form({ onCancelForm, onFormSubmit }: FormProps) {
 
         <div>
           <p className={ lessLength ? valid : invalid }>
-            Possuir 8 ou mais caracteres
+            { lessLength ? '' : 'Possuir 8 ou mais caracteres' }
           </p>
           <p className={ highLength ? valid : invalid }>
-            Possuir até 16 caracteres
+            { highLength ? '' : 'Possuir até 16 caracteres' }
           </p>
           <p className={ letterNum ? valid : invalid }>
-            Possuir letras e números
+            { letterNum ? '' : 'Possuir letras e números' }
           </p>
           <p className={ specialChar ? valid : invalid }>
-            Possuir algum caractere especial
+            { specialChar ? '' : 'Possuir algum caractere especial' }
           </p>
         </div>
 
@@ -111,6 +122,14 @@ function Form({ onCancelForm, onFormSubmit }: FormProps) {
         <button type="button" onClick={ onCancelForm }>
           Cancelar
         </button>
+
+        <input
+          type="checkbox"
+          id="passwordInput"
+          checked={ hidePasswords }
+          onChange={ () => setHidePasswords(!hidePasswords) }
+        />
+        <label htmlFor="passwordInput">Esconder senhas</label>
       </form>
     </div>
   );

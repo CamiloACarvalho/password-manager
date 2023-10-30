@@ -6,6 +6,7 @@ import './App.css';
 function App() {
   const [showForm, setShowForm] = useState(false);
   const [services, setServices] = useState<FormType[]>([]);
+  const [hidePasswords, setHidePasswords] = useState<boolean>(false);
 
   const handleClick = () => {
     setShowForm(!showForm);
@@ -26,18 +27,20 @@ function App() {
       <h1>Gerenciador de senhas</h1>
 
       <h2>Lista de Serviços</h2>
-      {services.length === 0 && !showForm && <p>Nenhuma senha cadastrada</p>}
+      { services.length === 0 && !showForm && <p>Nenhuma senha cadastrada</p> }
       <ul>
         {services.map((service, index) => (
           <li key={ index }>
-            <a href={ service.renderingURL }>{service.renderingService}</a>
+            <a href={ service.renderingURL }>{ service.renderingService }</a>
             <p>
               Login:
+              {' '}
               {service.renderingLogin}
             </p>
             <p>
               Senha:
-              {service.renderingPassword}
+              {' '}
+              { hidePasswords ? '******' : service.renderingPassword }
             </p>
             <button
               data-testid="remove-btn"
@@ -50,10 +53,22 @@ function App() {
         ))}
       </ul>
       {showForm ? (
-        <Form onCancelForm={ handleClick } onFormSubmit={ handleFormSubmit } />
+        <Form
+          onCancelForm={ handleClick }
+          onFormSubmit={ handleFormSubmit }
+          hidePasswords={ hidePasswords }
+          setHidePasswords={ setHidePasswords }
+        />
       ) : (
         <button onClick={ handleClick }>Cadastrar nova senha</button>
       )}
+      <input
+        type="checkbox"
+        id="passwordInput"
+        checked={ hidePasswords }
+        onChange={ () => setHidePasswords(!hidePasswords) }
+      />
+      <label htmlFor="passwordInput">Esconder senhas</label>
     </div>
   );
 }

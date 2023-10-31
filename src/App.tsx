@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Form from './components/Form';
 import { FormType } from './type';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 function App() {
@@ -31,7 +32,10 @@ function App() {
 
   return (
     <div>
-      <h1>Gerenciador de senhas</h1>
+
+      <header>
+        <h1>Gerenciador de senhas</h1>
+      </header>
 
       <h2>Lista de Serviços</h2>
 
@@ -60,31 +64,38 @@ function App() {
           </li>
         ))}
       </ul>
+      <div className="check-container">
+        {showForm ? (
+          <Form
+            onCancelForm={ handleClick }
+            onFormSubmit={ handleFormSubmit }
+          />
+        ) : (
 
-      {showForm ? (
-        <Form
-          onCancelForm={ handleClick }
-          onFormSubmit={ handleFormSubmit }
-        />
-      ) : (
-        <button
-          className="cadastro"
-          onClick={ handleClick }
+          <button
+            className="btn btn-outline-success"
+            onClick={ handleClick }
+          >
+            Cadastrar nova senha
+          </button>
+        )}
+
+        { serviceAdded && <p>Serviço cadastrado com sucesso</p> }
+
+        <label
+          className="check-name"
+          htmlFor="passwordInput"
         >
-          Cadastrar nova senha
-        </button>
-      )}
-
-      { serviceAdded && <p>Serviço cadastrado com sucesso</p> }
-
-      <input
-        className="check"
-        type="checkbox"
-        id="passwordInput"
-        checked={ hidePasswords }
-        onChange={ () => setHidePasswords(!hidePasswords) }
-      />
-      <label htmlFor="passwordInput">Esconder senhas</label>
+          <input
+            className="form-check-input"
+            type="checkbox"
+            id="passwordInput"
+            checked={ hidePasswords }
+            onChange={ () => setHidePasswords(!hidePasswords) }
+          />
+          Esconder senhas
+        </label>
+      </div>
     </div>
   );
 }

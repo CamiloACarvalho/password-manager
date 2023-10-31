@@ -19,6 +19,21 @@ h2 {
   margin: 2rem;
 }
 
+.check-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.check-name {
+  margin: 1rem;
+}
+
+.form-check-input {
+  margin: 0.4rem;
+}
+
 .valid-password-check {
   color: #aeffb6;
 }

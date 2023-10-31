@@ -1,3 +1,24 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+h1 {
+  text-align: center;
+  margin: 2rem;
+}
+
+h2 {
+  text-align: center;
+  margin: 2rem;
+}
+
+.no-password {
+  text-align: center;
+  margin: 2rem;
+}
+
 .valid-password-check {
   color: #aeffb6;
 }

@@ -80,7 +80,12 @@ function Form({
       <form onSubmit={ handleSubmit }>
         <label>
           Nome do serviço
-          <input type="text" value={ serviceName } onChange={ handleServiceNameChange } />
+          <input
+            className="service"
+            type="text"
+            value={ serviceName }
+            onChange={ handleServiceNameChange }
+          />
         </label>
 
         <label>

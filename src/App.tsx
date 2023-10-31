@@ -35,7 +35,8 @@ function App() {
 
       <h2>Lista de Serviços</h2>
 
-      { services.length === 0 && !showForm && <p>Nenhuma senha cadastrada</p> }
+      { services.length === 0 && !showForm
+        && <p className="no-password">Nenhuma senha cadastrada</p> }
 
       <ul>
         {services.map((service, index) => (
@@ -47,7 +48,7 @@ function App() {
             </p>
             <p>
               Senha:
-              { hidePasswords ? '******' : service.renderingPassword }
+              { hidePasswords ? '❌❌❌ ⚠️ ❌❌❌' : service.renderingPassword }
             </p>
             <button
               data-testid="remove-btn"
@@ -66,12 +67,18 @@ function App() {
           onFormSubmit={ handleFormSubmit }
         />
       ) : (
-        <button onClick={ handleClick }>Cadastrar nova senha</button>
+        <button
+          className="cadastro"
+          onClick={ handleClick }
+        >
+          Cadastrar nova senha
+        </button>
       )}
 
       { serviceAdded && <p>Serviço cadastrado com sucesso</p> }
 
       <input
+        className="check"
         type="checkbox"
         id="passwordInput"
         checked={ hidePasswords }

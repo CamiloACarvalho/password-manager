@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 import { FormType } from '../type';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './Form.module.css';
 
 type FormProps = {
   onCancelForm: () => void;
@@ -77,45 +79,55 @@ function Form({
 
   return (
     <div>
-      <form onSubmit={ handleSubmit }>
-        <label>
-          Nome do serviço
+      <form
+        onSubmit={ handleSubmit }
+        className="input-form"
+      >
+        <div className="form-floating mb-3">
           <input
-            className="service"
+            placeholder="Nome do seriço"
+            className="form-control"
             type="text"
             value={ serviceName }
             onChange={ handleServiceNameChange }
           />
-        </label>
+          <label>Nome do Serviço</label>
+        </div>
 
-        <label>
-          Login
-          <input type="text" value={ login } onChange={ handleLoginChange } />
-        </label>
-
-        <label>
-          Senha
+        <div className="form-floating mb-3">
           <input
+            placeholder="Login"
+            className="form-control"
+            type="text"
+            value={ login }
+            onChange={ handleLoginChange }
+          />
+          <label>Login</label>
+        </div>
+
+        <div className="form-floating mb-3">
+          <input
+            placeholder="Senha"
+            className="form-control"
             type={ showPassword ? 'text' : 'password' }
             value={ password }
             onChange={ (event) => setPassword(event.target.value) }
           />
-        </label>
+          <label>Senha</label>
+        </div>
 
-        <button
-          data-testid="show-hide-form-password"
-          type="button"
-          onClick={ () => setShowPassword(!showPassword) }
-        >
-          { showPassword ? 'Ocultar Senha' : 'Mostrar Senha' }
-        </button>
+        <div className="form-floating mb-3">
+          <input
+            placeholder="URL"
+            className="form-control"
+            type="text"
+            value={ url }
+            onChange={ handleUrlChange }
+          />
+          <label>URL</label>
+        </div>
 
-        <label>
-          URL
-          <input type="text" value={ url } onChange={ handleUrlChange } />
-        </label>
-
-        <div>
+        <div className="errorMensage">
           <p className={ lessLength ? valid : invalid }>
             Possuir 8 ou mais caracteres
           </p>
@@ -131,15 +143,30 @@ function Form({
         </div>
 
         <button
+          className="btn btn-outline-success"
           type="submit"
           disabled={ !inputValidation() }
         >
           Cadastrar
         </button>
 
-        <button type="button" onClick={ onCancelForm }>
+        <button
+          className="btn btn-outline-warning"
+          data-testid="show-hide-form-password"
+          type="button"
+          onClick={ () => setShowPassword(!showPassword) }
+        >
+          { showPassword ? 'Ocultar Senha' : 'Mostrar Senha' }
+        </button>
+
+        <button
+          className="btn btn-outline-danger"
+          type="button"
+          onClick={ onCancelForm }
+        >
           Cancelar
         </button>
+
       </form>
     </div>
   );

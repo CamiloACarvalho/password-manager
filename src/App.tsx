@@ -64,6 +64,7 @@ function App() {
           </li>
         ))}
       </ul>
+
       <div className="check-container">
         {showForm ? (
           <Form
@@ -71,7 +72,6 @@ function App() {
             onFormSubmit={ handleFormSubmit }
           />
         ) : (
-
           <button
             className="btn btn-outline-success"
             onClick={ handleClick }

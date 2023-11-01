@@ -114,6 +114,22 @@ function Form({
             onChange={ (event) => setPassword(event.target.value) }
           />
           <label>Senha</label>
+          { (password.length) ? (
+            <div className="errorMensage">
+              <p className={ lessLength ? valid : invalid }>
+                { password.length < 8 ? 'Mínimo 8 caracteres' : '' }
+              </p>
+              <p className={ highLength ? valid : invalid }>
+                { password.length > 16 ? 'Máximo 16 caracteres' : '' }
+              </p>
+              <p className={ letterNum ? valid : invalid }>
+                { letterNum ? 'Deve conter letras e números' : '' }
+              </p>
+              <p className={ specialChar ? valid : invalid }>
+                { specialChar ? 'Deve conter algum caractere especial' : '' }
+              </p>
+            </div>
+          ) : (null) }
         </div>
 
         <div className="form-floating mb-3">
@@ -125,21 +141,6 @@ function Form({
             onChange={ handleUrlChange }
           />
           <label>URL</label>
-        </div>
-
-        <div className="errorMensage">
-          <p className={ lessLength ? valid : invalid }>
-            Possuir 8 ou mais caracteres
-          </p>
-          <p className={ highLength ? valid : invalid }>
-            Possuir até 16 caracteres
-          </p>
-          <p className={ letterNum ? valid : invalid }>
-            Possuir letras e números
-          </p>
-          <p className={ specialChar ? valid : invalid }>
-            Possuir algum caractere especial
-          </p>
         </div>
 
         <button

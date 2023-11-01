@@ -41,8 +41,10 @@ h2 {
 
 .valid-password-check {
   color: #aeffb6;
+  margin: 0.25rem;
 }
 
 .invalid-password-check {
   color: #f58989;
+  margin: 0.25rem;
 }

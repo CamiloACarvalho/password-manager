@@ -33,6 +33,9 @@ function Form({
     return validService && validLogin && validPassword && validURL;
   };
 
+  const inputPassword = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$!%^&*?])[a-zA-Z\d@#$!%^&*?]{8,16}$/i;
+  const validPassword = inputPassword.test(password);
+
   const lessLength = password.length >= 8;
   const highLength = password.length <= 16;
   const letterNum = /^(?=.*[a-zA-Z])(?=.*\d)/.test(password);
@@ -115,18 +118,21 @@ function Form({
           />
           <label>Senha</label>
           { (password.length) ? (
-            <div className="errorMensage">
+            <div>
               <p className={ lessLength ? valid : invalid }>
-                { password.length < 8 ? 'Mínimo 8 caracteres' : '' }
+                {password.length < 8 ? 'Mínimo 8 caracteres' : ''}
               </p>
               <p className={ highLength ? valid : invalid }>
-                { password.length > 16 ? 'Máximo 16 caracteres' : '' }
+                {password.length > 16 ? 'Máximo 16 caracteres' : ''}
               </p>
               <p className={ letterNum ? valid : invalid }>
-                { letterNum ? 'Deve conter letras e números' : '' }
+                {!letterNum ? 'Deve conter letras e números' : ''}
               </p>
               <p className={ specialChar ? valid : invalid }>
-                { specialChar ? 'Deve conter algum caractere especial' : '' }
+                {!specialChar ? 'Deve conter algum caractere especial' : ''}
+              </p>
+              <p className={ validPassword ? valid : invalid }>
+                { validPassword ? 'Senha forte' : ''}
               </p>
             </div>
           ) : (null) }

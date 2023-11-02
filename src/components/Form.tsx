@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import Swal from 'sweetalert2';
+import CancelIcon from '@mui/icons-material/Cancel';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import { FormType } from '../type';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Form.module.css';
@@ -155,6 +159,7 @@ function Form({
           disabled={ !inputValidation() }
         >
           Cadastrar
+          <ThumbUpOffAltIcon style={ { marginLeft: '5px' } } />
         </button>
 
         <button
@@ -163,7 +168,17 @@ function Form({
           type="button"
           onClick={ () => setShowPassword(!showPassword) }
         >
-          { showPassword ? 'Ocultar Senha' : 'Mostrar Senha' }
+          {showPassword ? (
+            <>
+              Ocultar Senha
+              <VisibilityOffIcon style={ { marginLeft: '5px' } } />
+            </>
+          ) : (
+            <>
+              Mostrar Senha
+              <VisibilityIcon style={ { marginLeft: '5px' } } />
+            </>
+          )}
         </button>
 
         <button
@@ -172,6 +187,7 @@ function Form({
           onClick={ onCancelForm }
         >
           Cancelar
+          <CancelIcon style={ { marginLeft: '5px' } } />
         </button>
 
       </form>

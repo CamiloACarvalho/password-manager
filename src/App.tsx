@@ -52,7 +52,7 @@ function App() {
             </p>
             <p>
               Senha:
-              { hidePasswords ? '❌❌❌ ⚠️ ❌❌❌' : service.renderingPassword }
+              { hidePasswords ? '❌❌❌❌❌❌' : service.renderingPassword }
             </p>
             <button
               data-testid="remove-btn"

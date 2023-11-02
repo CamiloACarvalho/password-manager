@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import CancelIcon from '@mui/icons-material/Cancel';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import Form from './components/Form';
 import { FormType } from './type';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -7,11 +10,15 @@ import './App.css';
 function App() {
   const [showForm, setShowForm] = useState(false);
   const [services, setServices] = useState<FormType[]>([]);
-  const [hidePasswords, setHidePasswords] = useState<boolean>(false);
+  const [hidePasswords, setHidePasswords] = useState<boolean>(true);
   const [serviceAdded, setServiceAdded] = useState(false);
 
   const handleClick = () => {
     setShowForm(!showForm);
+  };
+
+  const handleChange = () => {
+    setHidePasswords((prevHidePasswords) => !prevHidePasswords);
   };
 
   const handleFormSubmit = (serviceData:FormType) => {
@@ -50,16 +57,34 @@ function App() {
               Login:
               { service.renderingLogin }
             </p>
-            <p>
-              Senha:
-              { hidePasswords ? '❌❌❌❌❌❌' : service.renderingPassword }
-            </p>
+            <div>
+              <p>
+                Senha:
+                { hidePasswords ? '❌❌❌❌❌❌' : service.renderingPassword }
+              </p>
+
+              <button
+                className="btn"
+                aria-label="Toggle Password Visibility"
+                type="button"
+                onClick={ handleChange }
+              >
+                { hidePasswords ? (
+                  <VisibilityOffIcon />
+                ) : (
+                  <VisibilityIcon />
+                )}
+              </button>
+            </div>
+
             <button
+              className="btn btn-outline-danger"
               data-testid="remove-btn"
               type="button"
               onClick={ () => handleRemoveService(index) }
             >
               Remover
+              <CancelIcon style={ { marginLeft: '5px' } } />
             </button>
           </li>
         ))}
@@ -81,20 +106,6 @@ function App() {
         )}
 
         { serviceAdded && <p>Serviço cadastrado com sucesso</p> }
-
-        <label
-          className="check-name"
-          htmlFor="passwordInput"
-        >
-          <input
-            className="form-check-input"
-            type="checkbox"
-            id="passwordInput"
-            checked={ hidePasswords }
-            onChange={ () => setHidePasswords(!hidePasswords) }
-          />
-          Esconder senhas
-        </label>
       </div>
     </div>
   );

@@ -45,8 +45,8 @@ function Form({
   const letterNum = /^(?=.*[a-zA-Z])(?=.*\d)/.test(password);
   const specialChar = /[@#$!%^&*?]/.test(password);
 
-  const valid = 'valid-password-check';
-  const invalid = 'invalid-password-check';
+  const valid = 'valid-password-check mb-1';
+  const invalid = 'invalid-password-check mb-1';
 
   const handleServiceNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setServiceName(event.target.value);
@@ -122,7 +122,7 @@ function Form({
           />
           <label>Senha</label>
           { (password.length) ? (
-            <div>
+            <div className="alert-mensage">
               <p className={ lessLength ? valid : invalid }>
                 {password.length < 8 ? 'Mínimo 8 caracteres' : ''}
               </p>

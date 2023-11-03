@@ -40,11 +40,22 @@ h2 {
 }
 
 .valid-password-check {
-  color: #aeffb6;
+  color: #00ff1a;
   margin: 0.25rem;
 }
 
 .invalid-password-check {
-  color: #f58989;
+  color: #ff0000;
   margin: 0.25rem;
 }
+
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20rem;
+  height: 20em;
+  border: #aeffb6 solid;
+  border-radius: 20px;
+}
+

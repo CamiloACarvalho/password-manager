@@ -37,6 +37,9 @@ function App() {
     setServices(updatedServices);
   };
 
+  const format1 = 'link-success link-offset-2 link-underline-opacity-25 ';
+  const format3 = 'link-underline-opacity-100-hover';
+
   return (
     <div>
 
@@ -49,19 +52,25 @@ function App() {
       { services.length === 0 && !showForm
         && <p className="no-password">Nenhuma senha cadastrada</p> }
 
-      <ul>
+      <div className="card">
         {services.map((service, index) => (
-          <li key={ index }>
-            <a href={ service.renderingURL }>{ service.renderingService }</a>
+          <ul key={ index }>
+            <h3>
+              #id { index }
+            </h3>
             <p>
-              Login:
-              { service.renderingLogin }
+              <a
+                className={ format1 + format3 }
+                href={ service.renderingURL }
+              >
+                <strong>{ service.renderingService }</strong>
+              </a>
+            </p>
+            <p>
+              <strong>Login:</strong> { service.renderingLogin }
             </p>
             <div>
-              <p>
-                Senha:
-                { hidePasswords ? '❌❌❌❌❌❌' : service.renderingPassword }
-              </p>
+              <strong>Senha:</strong> { hidePasswords ? '❌❌❌❌❌' : service.renderingPassword }
 
               <button
                 className="btn"
@@ -86,9 +95,9 @@ function App() {
               Remover
               <CancelIcon style={ { marginLeft: '5px' } } />
             </button>
-          </li>
+          </ul>
         ))}
-      </ul>
+      </div>
 
       <div className="check-container">
         {showForm ? (
@@ -104,7 +113,6 @@ function App() {
             Cadastrar nova senha
           </button>
         )}
-
         { serviceAdded && <p>Serviço cadastrado com sucesso</p> }
       </div>
     </div>

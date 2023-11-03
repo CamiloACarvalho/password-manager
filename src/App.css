@@ -49,6 +49,11 @@ h2 {
   margin: 0.25rem;
 }
 
+.no-password {
+  color: #ff0000;
+  opacity: 0.4
+}
+
 .card {
   display: flex;
   align-items: center;

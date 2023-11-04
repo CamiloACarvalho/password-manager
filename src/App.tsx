@@ -3,6 +3,7 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import Carousel from 'react-bootstrap/Carousel';
 import Form from './components/Form';
 import { FormType } from './type';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -14,6 +15,7 @@ function App() {
   const [hidePasswords, setHidePasswords] = useState<boolean>(true);
   const [serviceAdded, setServiceAdded] = useState(false);
   const [showSavePassword, setSavePassword] = useState(false);
+  const [index, setIndex] = useState(0);
 
   const handleClick = () => {
     setShowForm(!showForm);
@@ -23,7 +25,7 @@ function App() {
     setHidePasswords((prevHidePasswords) => !prevHidePasswords);
   };
 
-  const handleFormSubmit = (serviceData:FormType) => {
+  const handleFormSubmit = (serviceData: FormType) => {
     setServices([...services, serviceData]);
     setShowForm(false);
 
@@ -38,8 +40,8 @@ function App() {
     setSavePassword(!showSavePassword);
   };
 
-  const handleRemoveService = (index: number) => {
-    const updatedServices = services.filter((service, i) => i !== index);
+  const handleRemoveService = (indice: number) => {
+    const updatedServices = services.filter((service, i) => i !== indice);
     setServices(updatedServices);
   };
 
@@ -48,84 +50,75 @@ function App() {
 
   return (
     <div>
-
       <header>
         <h1>Gerenciador de senhas</h1>
       </header>
 
-      <h2>Lista de Serviços</h2>
+      <main>
+        <h2>Lista de Serviços</h2>
 
-      { services.length === 0
-        && <p className="no-password">Nenhuma senha cadastrada</p> }
+        {services.length === 0 && <p className="no-password">Nenhuma senha cadastrada</p>}
+        {showSavePassword === true ? (
+          <section>
+            <Carousel
+              activeIndex={ index }
+              onSelect={ (selectedIndex) => setIndex(selectedIndex) }
+            >
+              {services.map((service, id) => (
+                <Carousel.Item key={ id }>
+                  <div className="card">
+                    <ul>
+                      <h3>
+                        #ID
+                        {' '}
+                        {id}
+                      </h3>
+                      <p>
+                        <a className={ format1 + format3 } href={ service.renderingURL }>
+                          <strong>{service.renderingService}</strong>
+                        </a>
+                      </p>
+                      <p>
+                        <strong>Login:</strong>
+                        {' '}
+                        {service.renderingLogin}
+                      </p>
+                      <div>
+                        <strong>Senha:</strong>
+                        {' '}
+                        {hidePasswords ? '❌❌❌❌❌' : service.renderingPassword}
+                        <button
+                          className="btn"
+                          aria-label="Toggle Password Visibility"
+                          type="button"
+                          onClick={ handleChange }
+                        >
+                          {hidePasswords ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                        </button>
+                      </div>
+                      <button
+                        className="btn btn-outline-danger"
+                        data-testid="remove-btn"
+                        type="button"
+                        onClick={ () => handleRemoveService(id) }
+                      >
+                        Remover
+                        <CancelIcon style={ { marginLeft: '5px' } } />
+                      </button>
+                    </ul>
+                  </div>
+                </Carousel.Item>
+              ))}
+            </Carousel>
+          </section>
+        ) : null}
+      </main>
 
-      { showSavePassword === true ? (
-        <section>
-          <div className="card">
-            {services.map((service, index) => (
-              <ul key={ index }>
-                <h3>
-                  #id
-                  {' '}
-                  { index }
-                </h3>
-                <p>
-                  <a
-                    className={ format1 + format3 }
-                    href={ service.renderingURL }
-                  >
-                    <strong>{ service.renderingService }</strong>
-                  </a>
-                </p>
-                <p>
-                  <strong>Login:</strong>
-                  {' '}
-                  { service.renderingLogin }
-                </p>
-                <div>
-                  <strong>Senha:</strong>
-                  {' '}
-                  { hidePasswords ? '❌❌❌❌❌' : service.renderingPassword }
-
-                  <button
-                    className="btn"
-                    aria-label="Toggle Password Visibility"
-                    type="button"
-                    onClick={ handleChange }
-                  >
-                    { hidePasswords ? (
-                      <VisibilityOffIcon />
-                    ) : (
-                      <VisibilityIcon />
-                    )}
-                  </button>
-                </div>
-
-                <button
-                  className="btn btn-outline-danger"
-                  data-testid="remove-btn"
-                  type="button"
-                  onClick={ () => handleRemoveService(index) }
-                >
-                  Remover
-                  <CancelIcon style={ { marginLeft: '5px' } } />
-                </button>
-              </ul>
-            ))}
-          </div>
-        </section>
-      ) : (null
-      )}
       <div className="check-container">
         {showForm ? (
-          <Form
-            onCancelForm={ handleClick }
-            onFormSubmit={ handleFormSubmit }
-          />
+          <Form onCancelForm={ handleClick } onFormSubmit={ handleFormSubmit } />
         ) : (
-          <button
-            className="btn btn-outline-success"
-            onClick={ handleClick }
-          >
+          <button className="btn btn-outline-success" onClick={ handleClick }>
             Cadastrar nova senha
           </button>
         )}
@@ -135,7 +128,7 @@ function App() {
           onClick={ handleShowSavePassword }
           disabled={ services.length === 0 }
         >
-          { !showSavePassword ? (
+          {!showSavePassword ? (
             <>
               Exibir Lista de Serviços
               <FormatListBulletedIcon style={ { marginLeft: '5px' } } />
@@ -148,8 +141,7 @@ function App() {
           )}
         </button>
 
-        { serviceAdded && <p>Serviço cadastrado com sucesso</p> }
-
+        {serviceAdded && <p>Serviço cadastrado com sucesso</p>}
       </div>
     </div>
   );

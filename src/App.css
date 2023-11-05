@@ -65,9 +65,9 @@ h2 {
 section {
   display: flex;
   align-items: center;
-  height: 400px;
-  width: 90vw;
-  background-color: #ff0000;
+  height: 300px;
+  width: 100vw;
+  background-color: rgb(0, 0, 0, 0.75);
 }
 
 .card {
@@ -75,7 +75,7 @@ section {
   align-items: center;
   justify-content: center;
   width: 300px;
-  height: 300px;
+  height: 250px;
   border: #aeffb6 solid;
   border-radius: 20px;
   margin: 15px;
@@ -84,8 +84,19 @@ section {
 .carousel-inner {
   display: flex;
   justify-content: center;
-  width: 95vw;
-  
-
+  width: 90vw;
 }
+
+.carousel-control-prev-icon {
+  height: 50px;
+  width: 50px;
+  
+}
+
+.carousel-control-next-icon {
+  height: 50px;
+  width: 50px;
+  
+}
+
 

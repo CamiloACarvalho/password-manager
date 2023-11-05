@@ -33,7 +33,7 @@ function App() {
 
     setTimeout(() => {
       setServiceAdded(false);
-    }, 1500);
+    }, 1000);
   };
 
   const handleShowSavePassword = () => {
@@ -43,6 +43,10 @@ function App() {
   const handleRemoveService = (indice: number) => {
     const updatedServices = services.filter((service, i) => i !== indice);
     setServices(updatedServices);
+
+    if (updatedServices.length === 0) {
+      setSavePassword(false);
+    }
   };
 
   const format1 = 'link-success link-offset-2 link-underline-opacity-25 ';
@@ -58,7 +62,7 @@ function App() {
         <h2>Lista de Serviços</h2>
 
         {services.length === 0 && <p className="no-password">Nenhuma senha cadastrada</p>}
-        {showSavePassword === true ? (
+        {showSavePassword && services.length > 0 && (
           <section>
             <Carousel
               activeIndex={ index }
@@ -68,11 +72,6 @@ function App() {
                 <Carousel.Item key={ id }>
                   <div className="card">
                     <ul>
-                      <h3>
-                        #ID
-                        {' '}
-                        {id}
-                      </h3>
                       <p>
                         <a className={ format1 + format3 } href={ service.renderingURL }>
                           <strong>{service.renderingService}</strong>
@@ -111,7 +110,7 @@ function App() {
               ))}
             </Carousel>
           </section>
-        ) : null}
+        )}
       </main>
 
       <div className="check-container">
